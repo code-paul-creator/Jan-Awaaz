@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jan Awaaz: BRICS Citizen Demand Intelligence</title>
+<style>
+:root{--bg:#081426;--card:rgba(255,255,255,.055);--ink:#eef3fb;--mut:#9fb1c9;--line:rgba(255,255,255,.11);--acc:#34d399;--acc2:#f5b841;--warn:#ff8a7a}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:radial-gradient(900px 520px at 5% -10%,#0c4a6e 0,transparent 60%),radial-gradient(800px 520px at 100% 0,#064e3b 0,transparent 55%),radial-gradient(700px 500px at 50% 120%,#3a2f0b 0,transparent 60%),var(--bg);background-attachment:fixed}
+header{padding:34px 20px 10px;max-width:1100px;margin:auto}
+h1{margin:0;font-size:34px;letter-spacing:-.5px;background:linear-gradient(90deg,#ffffff,#fde9b0 60%,#f5b841);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .sm{-webkit-text-fill-color:var(--mut);font-size:15px;font-weight:400;letter-spacing:0}
+header p{margin:6px 0 10px;color:var(--mut);max-width:780px}
+main{max-width:1100px;margin:auto;padding:12px 20px 40px;display:grid;gap:18px;grid-template-columns:1fr 1.6fr}
+@media(max-width:860px){main{grid-template-columns:1fr}h1{font-size:26px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(14px);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+h2{margin:0 0 10px;font-size:16px;color:#fff}
+label{display:block;font-size:12px;color:var(--mut);margin:10px 0 3px}
+textarea,select,button{width:100%;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--ink)}
+select option{background:#0f1a2e;color:#eaf2ff}textarea{min-height:88px;resize:vertical}body::before{content:'';position:fixed;top:0;left:0;right:0;height:4px;z-index:5;background:linear-gradient(90deg,#2563eb 0 20%,#16a34a 20% 40%,#facc15 40% 60%,#f97316 60% 80%,#dc2626 80%)}
+textarea:focus,select:focus{outline:2px solid var(--acc);border-color:transparent}
+.row{display:flex;gap:8px}.row>*{flex:1}
+button{cursor:pointer;background:linear-gradient(90deg,#f5c451,#e39a14);color:#1a1200;border:0;font-weight:700;margin-top:10px;transition:transform .15s,filter .15s}button:hover{transform:translateY(-1px);filter:brightness(1.08)}button:disabled{opacity:.6}
+button.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--line);font-size:12px;margin:2px 4px 2px 0}
+.chip.w{color:var(--warn);border-color:var(--warn)}.chip.g{color:#6ee7b7;border-color:#34d399}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stat{border-radius:12px;padding:10px 12px;background:linear-gradient(135deg,rgba(56,120,200,.22),rgba(52,211,153,.12));border:1px solid var(--line)}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--mut)}
+.item{border-top:1px solid var(--line);padding:12px 0}.item:first-of-type{border-top:0}.top{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.bar{height:7px;border-radius:4px;background:rgba(255,255,255,.1);margin:7px 0}.bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#34d399,#f5b841)}
+.sm{font-size:13px;color:var(--mut)}#feed div{font-size:13px;border-top:1px solid var(--line);padding:7px 0}
+footer{max-width:1100px;margin:auto;padding:0 20px 30px;font-size:12px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+<h1>Jan Awaaz <span class="sm">/ BRICS Citizen Demand Intelligence</span></h1>
+<span class="chip g">✨ Powered by Gemini</span><span class="chip">Digital Public Good</span><span class="chip">BRICS · Innovation</span>
+<p>An open, multilingual platform that turns citizen requests (voice, text, WhatsApp/SMS/Telegram) into ranked, evidence-backed development priorities for policymakers. Designed as a Digital Public Good.</p>
+</header>
+<main>
+<section>
+<div class="card">
+<h2>1. Submit a citizen request</h2>
+<label for="txt">Request in any supported language</label>
+<textarea id="txt" placeholder="e.g. हमारे गाँव में पीने के पानी की बहुत कमी है / We need a road to the clinic / Precisamos de escola perto da vila"></textarea>
+<div class="row"><div><label for="reg">Region</label><select id="reg"></select></div>
+<div><label for="ch">Channel</label><select id="ch"><option>Voice</option><option selected>Text</option><option>WhatsApp</option><option>SMS</option><option>Telegram</option></select></div></div>
+<label for="vl">Voice language</label>
+<select id="vl"><option value="en-IN">English</option><option value="hi-IN">Hindi</option><option value="mr-IN">Marathi</option><option value="pt-BR">Portuguese</option><option value="ru-RU">Russian</option><option value="zh-CN">Chinese</option><option value="ar-EG">Arabic</option></select>
+<div class="row"><button class="alt" id="mic" type="button">🎤 Speak</button><button id="go" type="button">Submit</button></div>
+<div id="res" class="sm" style="margin-top:10px"></div>
+</div>
+<div class="card" style="margin-top:16px"><h2>Live intake feed</h2><div id="feed" class="sm">No live submissions yet.</div></div>
+</section>
+<section class="card">
+<h2>2. Priority projects for policymakers</h2>
+<div class="row"><div><label for="fc">Country</label><select id="fc"></select></div><div><label for="fk">Sector</label><select id="fk"></select></div></div>
+<div class="stats" style="margin-top:12px"><div class="stat"><b id="s1">0</b><span>requests analysed</span></div><div class="stat"><b id="s2">0</b><span>regions</span></div><div class="stat"><b id="s3">0</b><span>misaligned with spending</span></div></div>
+<div id="list"></div>
+<p class="sm">Score = 40% citizen demand + 40% infrastructure gap + 20% unfunded share, weighted by population. "Misaligned" = high demand and gap but low planned investment.</p>
+</section>
+</main>
+<footer>Demo data is synthetic and illustrative. In production, connect national census, infrastructure indices and public investment plans via open APIs. Request text is sent only to your own /api/classify endpoint, which calls the Gemini API; the key never reaches the browser. Without the API (e.g. GitHub Pages) the app falls back to offline keyword rules.</footer>
+<script>
+const K={water:"Water & sanitation",roads:"Roads & transport",health:"Healthcare",edu:"Education",energy:"Energy",digital:"Digital connectivity"};
+const KEYS=Object.keys(K);
+// region: country, name, population (M), infrastructure gap 0-100 per sector, planned investment share 0-100 per sector
+const R=[
+["India","Bihar",128,[72,64,70,58,52,60],[30,55,35,40,60,45]],
+["India","Marathwada, Maharashtra",20,[80,48,50,42,44,52],[25,50,45,45,55,50]],
+["Brazil","Maranhão",7,[66,70,62,54,40,68],[35,45,50,50,55,30]],
+["Brazil","Amazonas",4,[58,82,60,50,62,80],[40,35,45,45,30,25]],
+["Russia","Tuva",0.3,[46,74,66,40,36,62],[45,40,35,55,50,30]],
+["China","Gansu",25,[44,38,48,36,30,40],[55,60,55,60,65,55]],
+["South Africa","Eastern Cape",7,[68,66,72,56,58,64],[35,45,40,55,40,40]],
+["Egypt","Upper Egypt",25,[62,50,68,60,34,52],[50,55,40,50,55,45]],
+["Ethiopia","Oromia",40,[78,80,76,68,74,82],[30,40,35,45,40,30]],
+["Iran","Sistan-Baluchestan",3,[76,68,70,64,50,70],[35,40,35,40,45,30]]];
+const KW={water:["water","sanitation","toilet","drought","पानी","जल","शौचालय","água","agua","esgoto","вод","канализ","水","厕所","缺水","مياه","ماء","صرف"],
+roads:["road","bridge","bus","transport","sadak","सड़क","पुल","परिवहन","estrada","ponte","ônibus","дорог","мост","транспорт","路","桥","公交","طريق","كوبري","مواصلات"],
+health:["clinic","hospital","doctor","medicine","health","अस्पताल","दवा","डॉक्टर","स्वास्थ्य","saúde","hospital","médico","больниц","врач","здоров","医院","医生","看病","مستشفى","طبيب","صحة"],
+edu:["school","teacher","college","education","स्कूल","शिक्षक","विद्यालय","शिक्षा","escola","professor","educação","школ","учител","образован","学校","老师","教育","مدرسة","معلم","تعليم"],
+energy:["electric","power","light","solar","bijli","बिजली","बत्ती","energia","luz","eletricidade","электр","свет","энерг","电","停电","كهرباء","طاقة","نور"],
+digital:["internet","network","wifi","broadband","mobile","इंटरनेट","नेटवर्क","रेंज","rede","sinal","интернет","связь","网络","信号","宽带","إنترنت","شبكة","اتصال"]};
+const URG=["urgent","emergency","died","no water","immediately","तुरंत","आपातकाल","urgente","срочно","紧急","عاجل"];
+let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+const D=R.map(r=>KEYS.map((_,k)=>Math.round((r[3][k]*(r[2]>50?60:r[2]>10?25:8))*(0.6+rnd()*0.8))));
+const $=id=>document.getElementById(id),feed=[];
+function fill(){ $("reg").innerHTML=R.map((r,i)=>`<option value="${i}">${r[1]}, ${r[0]}</option>`).join("");
+ $("fc").innerHTML="<option value=''>All BRICS countries</option>"+[...new Set(R.map(r=>r[0]))].map(c=>`<option>${c}</option>`).join("");
+ $("fk").innerHTML="<option value=''>All sectors</option>"+KEYS.map(k=>`<option value="${k}">${K[k]}</option>`).join("");}
+function lang(t){if(/[\u0900-\u097F]/.test(t))return/(आहे|आम्ही|नाही)/.test(t)?"Marathi":"Hindi";if(/[\u0400-\u04FF]/.test(t))return"Russian";if(/[\u4E00-\u9FFF]/.test(t))return"Chinese";if(/[\u0600-\u06FF]/.test(t))return"Arabic";if(/(precisamos|não|escola|água|estrada|saúde|luz)/i.test(t))return"Portuguese";return"English";}
+function classify(t){const l=t.toLowerCase();let best=null,n=0;for(const k of KEYS){const c=KW[k].filter(w=>l.includes(w)).length;if(c>n){n=c;best=k}}return best;}
+function scores(){const max=Math.max(...D.flat());return R.flatMap((r,i)=>KEYS.map((k,j)=>{
+ const d=D[i][j]/max,g=r[3][j]/100,u=1-r[4][j]/100,pw=0.6+0.4*Math.min(r[2]/100,1);
+ const s=100*(0.4*d+0.4*g+0.2*u)*pw;return{i,j,c:r[0],reg:r[1],k:KEYS[j],req:D[i][j],gap:r[3][j],inv:r[4][j],s,mis:d>0.25&&g>0.6&&r[4][j]<40};}));}
+function rec(x){const a={water:"Fund piped/borewell water schemes and sanitation upgrades",roads:"Prioritise all-weather rural roads and bridges to services",health:"Expand primary health centres and mobile clinics with tele-consult",edu:"Build/upgrade schools and deploy teachers with digital classrooms",energy:"Extend grid or off-grid solar mini-grids to unserved settlements",digital:"Roll out last-mile broadband and shared public Wi-Fi hubs"};return a[x.k];}
+function render(){const fc=$("fc").value,fk=$("fk").value;let all=scores();
+ const f=all.filter(x=>(!fc||x.c===fc)&&(!fk||x.k===fk)).sort((a,b)=>b.s-a.s);
+ $("s1").textContent=D.flat().reduce((a,b)=>a+b,0).toLocaleString();$("s2").textContent=new Set(f.map(x=>x.reg)).size;$("s3").textContent=f.filter(x=>x.mis).length;
+ const top=f.slice(0,8),m=top[0]?top[0].s:1;
+ $("list").innerHTML=top.map((x,n)=>`<div class="item"><div class="top"><span>${n+1}. ${K[x.k]} · ${x.reg}, ${x.c}</span><span>${x.s.toFixed(0)}</span></div><div class="bar"><i style="width:${x.s/m*100}%"></i></div>
+ <div class="sm">${rec(x)}</div><span class="chip">${x.req.toLocaleString()} requests</span><span class="chip">gap ${x.gap}/100</span><span class="chip">planned investment ${x.inv}%</span>${x.mis?'<span class="chip w">⚠ misaligned with spending</span>':""}</div>`).join("")||"<p class='sm'>No data.</p>";}
+async function submit(){const t=$("txt").value.trim();if(!t){$("res").textContent="Please enter or speak a request.";return}
+ $("go").disabled=true;$("res").textContent="Analysing with Gemini…";
+ let k,l,u,sum="",src="rule-based fallback";
+ try{const c=new AbortController();setTimeout(()=>c.abort(),9000);
+  const r=await fetch("/api/classify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:t}),signal:c.signal});
+  if(!r.ok)throw 0;const j=await r.json();if(!KEYS.includes(j.sector))throw 0;
+  k=j.sector;l=j.language||"Unknown";u=!!j.urgent;sum=j.summary_en||"";src="Gemini";
+ }catch(e){k=classify(t);l=lang(t);u=URG.some(w=>t.toLowerCase().includes(w))}
+ $("go").disabled=false;
+ if(!k){$("res").textContent="Could not map to a sector automatically. Routed to human review queue.";return}
+ const i=+$("reg").value,ch=$("ch").value;D[i][KEYS.indexOf(k)]+=u?3:1;
+ $("res").innerHTML=`<span class="chip g">${src}</span><span class="chip">🌐 ${l}</span><span class="chip">${K[k]}</span><span class="chip">via ${ch}</span>${u?'<span class="chip w">urgent</span>':""}<br>${sum?"English summary: "+sum.replace(/</g,"&lt;")+"<br>":""}Added to ${R[i][1]}. Priorities recalculated.`;
+ feed.unshift(`<div><b>${R[i][1]}</b> · ${K[k]} · ${l} · ${ch}<br>${(sum||t).replace(/</g,"&lt;").slice(0,110)}</div>`);$("feed").innerHTML=feed.slice(0,6).join("");$("txt").value="";render();}
+$("go").onclick=submit;$("fc").onchange=$("fk").onchange=render;
+$("mic").onclick=()=>{const S=window.SpeechRecognition||window.webkitSpeechRecognition;if(!S){$("res").textContent="Voice input needs Chrome or Edge. You can type instead.";return}
+ const r=new S();r.lang=$("vl").value;r.onresult=e=>{$("txt").value=e.results[0][0].transcript;$("ch").value="Voice"};r.onerror=()=>$("res").textContent="Microphone unavailable or permission denied.";r.start();$("res").textContent="Listening…";};
+fill();render();
+</script>
+</body>
+</html>
